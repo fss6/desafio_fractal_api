@@ -10,10 +10,36 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20171223201104) do
+ActiveRecord::Schema.define(version: 20171223210123) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "categories", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_categories_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "category_id"
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_projects_on_category_id"
+    t.index ["user_id"], name: "index_projects_on_user_id"
+  end
+
+  create_table "projects_users", id: false, force: :cascade do |t|
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.index ["project_id"], name: "index_projects_users_on_project_id"
+    t.index ["user_id"], name: "index_projects_users_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "provider", default: "email", null: false
@@ -42,4 +68,9 @@ ActiveRecord::Schema.define(version: 20171223201104) do
     t.index ["uid", "provider"], name: "index_users_on_uid_and_provider", unique: true
   end
 
+  add_foreign_key "categories", "users"
+  add_foreign_key "projects", "categories"
+  add_foreign_key "projects", "users"
+  add_foreign_key "projects_users", "projects"
+  add_foreign_key "projects_users", "users"
 end
