@@ -11,6 +11,16 @@ RSpec.describe Category, type: :model do
     expect(category.valid?).to be_truthy
   end
 
+  it "is nil name attribute" do
+    category = build(:category, name: nil, user_id: @user.id)
+    expect(category.valid?).to be_falsey
+  end
+
+  it "is nil user_id attribute" do
+    category = build(:category, name: nil)
+    expect(category.valid?).to be_falsey
+  end
+
   it "has a unique name" do
     category = build(:category, user_id: @user.id)
     expect(category.valid?).to be_falsey
