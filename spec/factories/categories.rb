@@ -1,5 +1,6 @@
 FactoryBot.define do
   factory :category do
-    name 'MyCategory'
+    user nil
+    name Faker::Lorem.unique.word
   end
 end

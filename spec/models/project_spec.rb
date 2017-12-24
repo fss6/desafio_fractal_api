@@ -9,7 +9,7 @@ RSpec.describe Project, type: :model do
   end
 
   it "is valid with valid attributes" do
-    project = build(:project, name: generate(:name), user_id: @user.id, category_id: @category.id)
+    project = build(:project, user_id: @user.id, category_id: @category.id)
     expect(project.valid?).to be_truthy
   end
 
@@ -19,17 +19,17 @@ RSpec.describe Project, type: :model do
   end
 
   it "is nil category attribute" do
-    project = build(:project, name: nil, user_id: @user.id)
+    project = build(:project, user_id: @user.id)
     expect(project.valid?).to be_falsey
   end
 
   it "is nil user attribute" do
-    project = build(:project, name: nil, category_id: @category.id)
+    project = build(:project, category_id: @category.id)
     expect(project.valid?).to be_falsey
   end
 
   it "has a unique name" do
-    project = build(:project, user_id: @user.id, category_id: @category.id)
+    project = build(:project, name: @project.name, user_id: @user.id, category_id: @category.id)
     expect(project.valid?).to be_falsey
   end
 end
