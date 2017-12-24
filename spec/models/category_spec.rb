@@ -7,13 +7,13 @@ RSpec.describe Category, type: :model do
   end
 
   it "is valid with valid attributes" do
-    category = build(:category, user_id: @user.id)
-    expect(category).to be_truthy
+    category = build(:category, name: generate(:name), user_id: @user.id)
+    expect(category.valid?).to be_truthy
   end
 
   it "has a unique name" do
-    category = build(:category, name: @category.name, user_id: @user.id)
-    expect(category.save).to be_falsey
+    category = build(:category, user_id: @user.id)
+    expect(category.valid?).to be_falsey
   end
 
   it "dependent destroy with erros" do
