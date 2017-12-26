@@ -3,7 +3,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = Project.all
+    @projects = current_user.projects
 
     render json: @projects
   end
@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     if @project.save
       render json: @project, status: :created, location: @project
     else
-      render json: @project.errors, status: :unprocessable_entity
+      render json: @project.errors.full_messages, status: :unprocessable_entity
     end
   end
 

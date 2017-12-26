@@ -1,17 +1,17 @@
-
+MAX = 5
 # User seed collection
-(1..5).collect{{
+(1..MAX).collect{{
   name: Faker::Name.unique.name,
   email: Faker::Internet.unique.email,
-  password: Faker::Internet.password(min_length = 8, max_length = 8)
+  password: '12345678'
 }}.each do |user_attribute|
   user = User.new(user_attribute)
   user.save if user.valid?
 end
 
 # Category seed collection
-(1..5).collect{{
-  user_id: User.first.id,
+(1..MAX).collect{ |index| {
+  user_id: index,
   name: Faker::Lorem.unique.word
 }}.each do |category_attribute|
   category = Category.new(category_attribute)
@@ -19,8 +19,8 @@ end
 end
 
 # Project seed collection
-(1..5).collect{{
-  user_id: User.first.id,
+(1..MAX).collect{ |index| {
+  user_id: index,
   category_id: Category.first.id,
   name: Faker::Lorem.word,
   description: Faker::Lorem.paragraph
@@ -30,8 +30,8 @@ end
 end
 
 # Task seed collection
-(1..5).collect{{
-  project_id: Project.first.id,
+(1..MAX).collect{ |index| {
+  project_id: index,
   name: Faker::Lorem.word,
   description: Faker::Lorem.paragraph
 }}.each do |task_attribute|

@@ -3,7 +3,7 @@ class TasksController < ApplicationController
 
   # GET /tasks
   def index
-    @tasks = Task.all
+    @tasks = Task.where(project_id: current_user.projects.pluck(:id))
 
     render json: @tasks
   end

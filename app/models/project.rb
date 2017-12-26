@@ -4,6 +4,6 @@ class Project < ApplicationRecord
   has_and_belongs_to_many :users
   has_many :tasks
 
-  validates :name, :user, :category, presence: true
+  validates :name, presence: true
   validates :name, uniqueness: true
 end
