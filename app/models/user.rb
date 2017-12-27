@@ -8,7 +8,8 @@ class User < ActiveRecord::Base
   has_many :categories
 
   def search(term)
-    term = "%#{term.downcase}%"
+    term = term.present? ? term.downcase : term
+    term = "%#{term}%"
     projects.where("lower(projects.name) LIKE ? OR lower(projects.description) LIKE ?", term, term)
   end
 
