@@ -3,22 +3,11 @@
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
-Things you may want to cover:
+Aplicação fornecer recursos para https://bitbucket.org/fabiosantospe/desafio_fractal_consumer
 
-* Ruby version
+Configurações iniciais:
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- bundle update
+- configurar as credencias do DB em config/database.yml
+- rails db:create db:migrate db:seed
+- rails s
