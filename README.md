@@ -5,6 +5,8 @@ application up and running.
 
 Aplicação fornecer recursos para https://bitbucket.org/fabiosantospe/desafio_fractal_consumer
 
+Herokuapp: Herokuapp: https://desafio-fractal-api.herokuapp.com
+
 Configurações iniciais:
 
 - bundle update
