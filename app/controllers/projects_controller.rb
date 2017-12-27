@@ -3,12 +3,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    term = params[:term].present? ? params[:term] : '*'
-
-    projects = Project.search(term,
-      fields: [{name: :word_middle}, :user_id],
-      where: {user_id: current_user.id})
-    render json: projects
+    render json: current_user.search(params['term'])
   end
 
   # GET /projects/1
@@ -49,6 +44,6 @@ class ProjectsController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def project_params
-      params.require(:project).permit(:user_id, :category_id, :name, :description)
+      params.require(:project).permit(:user_id, :category_id, :name, :description, :term)
     end
 end

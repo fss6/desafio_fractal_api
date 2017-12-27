@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include DeviseTokenAuth::Concerns::User
   devise :database_authenticatable, :registerable,
           :recoverable, :rememberable, :trackable, :validatable
 
@@ -6,5 +7,10 @@ class User < ActiveRecord::Base
   has_many :projects
   has_many :categories
 
-  include DeviseTokenAuth::Concerns::User
+  def search(term)
+    term = "%#{term.downcase}%"
+    projects.where("lower(projects.name) LIKE ? OR lower(projects.description) LIKE ?", term, term)
+  end
+
+
 end
