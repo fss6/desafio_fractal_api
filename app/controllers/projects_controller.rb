@@ -3,9 +3,12 @@ class ProjectsController < ApplicationController
 
   # GET /projects
   def index
-    @projects = current_user.projects
+    term = params[:term].present? ? params[:term] : '*'
 
-    render json: @projects
+    projects = Project.search(term,
+      fields: [{name: :word_middle}, :user_id],
+      where: {user_id: current_user.id})
+    render json: projects
   end
 
   # GET /projects/1
